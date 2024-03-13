@@ -7,8 +7,8 @@ export default function FooterCom() {
       <Footer container className="flex-col md:flex-row">
         <Footer.Copyright
           href="#"
-          by="RateMyUni™"
-          year={2022}
+          by="RateMyUni™ by Jaco"
+          year={2024}
           className="md:pb-0 pb-2 justify-center flex"
         />
         <Footer.LinkGroup className="justify-center">
