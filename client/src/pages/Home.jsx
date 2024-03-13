@@ -4,7 +4,7 @@ import { Button, Card, Avatar } from "flowbite-react";
 export default function Home() {
   return (
     <div className="max-w-6xl mx-auto mt-5 mb-5 min-h-screen">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <Card className="max-w-sm hover:ring">
           <div className="flex">
             <Avatar

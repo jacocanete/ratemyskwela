@@ -1,13 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Label,
-  TextInput,
-  Checkbox,
-  Modal,
-  ModalHeader,
-  Navbar,
-} from "flowbite-react";
+import { Button, Modal, ModalHeader, Navbar } from "flowbite-react";
 import { FaMoon } from "react-icons/fa";
 import { useState, useRef } from "react";
 import { HiAcademicCap } from "react-icons/hi";
@@ -16,8 +8,6 @@ import SignUp from "./SignUp";
 
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
-
-  const emailInputRef = useRef(null);
 
   const [signIn, setSignIn] = useState(true);
 
@@ -55,7 +45,6 @@ export default function Header() {
         onClose={() => {
           setShowModal(false);
         }}
-        initialFocus={emailInputRef}
         popup
       >
         <Modal.Header />

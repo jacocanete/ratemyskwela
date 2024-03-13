@@ -1,5 +1,6 @@
-import { Button, Label, TextInput } from "flowbite-react";
+import { Button, Label, TextInput, FloatingLabel } from "flowbite-react";
 import { useRef, useState } from "react";
+import { HiAcademicCap } from "react-icons/hi";
 
 export default function SignUp({ setSignIn }) {
   const [formData, setFormData] = useState({});
@@ -8,49 +9,53 @@ export default function SignUp({ setSignIn }) {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
-  console.log(formData);
+  const handleSubmit = () => {};
 
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+      <div className="flex justify-center gap-1">
+        <HiAcademicCap className="w-12 h-12 text-pink-500 dark:text-pink-300" />
+        <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
+          RateMyUni
+        </span>
+      </div>
+      <h3 className="mb-4 text-center text-xl font-medium text-gray-900 dark:text-white">
         Sign up to our platform
       </h3>
       <div>
-        <div className="mb-2 block">
-          <Label htmlFor="username" value="Your username" />
-        </div>
-        <TextInput
+        <FloatingLabel
           id="username"
-          placeholder="username"
           required
           onChange={handleChange}
+          variant="outlined"
+          label="Username"
         />
       </div>
       <div>
-        <div className="mb-2 block">
-          <Label htmlFor="email" value="Your email" />
-        </div>
-        <TextInput
+        <FloatingLabel
           id="email"
-          placeholder="name@company.com"
           required
           onChange={handleChange}
+          variant="outlined"
+          label="Email"
         />
       </div>
       <div>
-        <div className="mb-2 block">
-          <Label htmlFor="password" value="Your password" />
-        </div>
-        <TextInput
+        <FloatingLabel
           id="password"
           type="password"
-          placeholder="************"
           required
           onChange={handleChange}
+          variant="outlined"
+          label="Password"
         />
       </div>
       <div className="w-full">
-        <Button gradientMonochrome="pink" className="w-full">
+        <Button
+          gradientMonochrome="pink"
+          className="w-full"
+          onClick={handleSubmit}
+        >
           Create your account
         </Button>
       </div>
@@ -60,7 +65,7 @@ export default function SignUp({ setSignIn }) {
           onClick={() => {
             setSignIn(true);
           }}
-          className="text-pink-500 hover:underline dark:text-pink-300"
+          className="text-pink-500 hover:underline dark:text-pink-300 cursor-pointer"
         >
           Sign in here
         </a>
