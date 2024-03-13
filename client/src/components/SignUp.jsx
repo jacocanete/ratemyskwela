@@ -29,6 +29,7 @@ export default function SignUp({ setSignIn }) {
           onChange={handleChange}
           variant="outlined"
           label="Username"
+          className="dark:bg-gray-700"
         />
       </div>
       <div>
@@ -38,6 +39,7 @@ export default function SignUp({ setSignIn }) {
           onChange={handleChange}
           variant="outlined"
           label="Email"
+          className="dark:bg-gray-700"
         />
       </div>
       <div>
@@ -48,6 +50,7 @@ export default function SignUp({ setSignIn }) {
           onChange={handleChange}
           variant="outlined"
           label="Password"
+          className="dark:bg-gray-700"
         />
       </div>
       <div className="w-full">
@@ -67,7 +70,7 @@ export default function SignUp({ setSignIn }) {
           }}
           className="text-pink-500 hover:underline dark:text-pink-300 cursor-pointer"
         >
-          Sign in here
+          Log in here
         </a>
       </div>
     </div>
