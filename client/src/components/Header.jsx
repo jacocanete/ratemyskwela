@@ -1,11 +1,19 @@
-import { Modal, ModalHeader, Navbar } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { Button, Label, TextInput, Checkbox } from "flowbite-react";
+import {
+  Button,
+  Label,
+  TextInput,
+  Checkbox,
+  Modal,
+  ModalHeader,
+  Navbar,
+} from "flowbite-react";
 import { FaMoon } from "react-icons/fa";
 import { useState, useRef } from "react";
 import { HiAcademicCap } from "react-icons/hi";
 
 export default function Header() {
+  const [formData, setFormData] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [signIn, setSignIn] = useState(true);
 
@@ -13,9 +21,12 @@ export default function Header() {
 
   const handleSignin = () => {
     setShowModal(true);
+    setSignIn(true);
   };
 
-  const email = "";
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
+  };
 
   return (
     <>
