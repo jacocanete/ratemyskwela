@@ -17,50 +17,50 @@ export const signup = async (req, res, next) => {
     password === ""
   ) {
     next(errorHandler(400, "All fields are required"));
-  }
+  } else {
+    // Hash the password
+    const hashedPassword = bcryptjs.hashSync(password, 12);
 
-  // Hash the password
-  const hashedPassword = await bcryptjs.hash(password, 12);
-
-  // Create a new user
-  const user = new User({
-    username,
-    email,
-    password: hashedPassword,
-  });
-
-  // Save the user to the database
-  try {
-    await newUser.save();
-    res.status(201).json({
-      success: true,
-      message: "Signup successful",
+    // Create a new user
+    const newUser = new User({
+      username,
+      email,
+      password: hashedPassword,
     });
-  } catch (error) {
-    next(error);
+
+    // Save the user to the database
+    try {
+      await newUser.save();
+      res.status(201).json({
+        success: true,
+        message: "Signup successful",
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 };
 
 // Sign in a user
 export const signin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, username, password } = req.body;
 
   // Check if all fields are provided
-  if (!email || !password || email === "" || password === "") {
+  if ((!email && !username) || !password || password === "") {
     next(errorHandler(400, "All fields are required"));
   }
 
   try {
-    // Find the user by email
-    const validUser = await User.findOne({ email });
+    // Find the user by email or username
+    const validUser = await User.findOne({ $or: [{ email }, { username }] });
     if (!validUser) {
-      next(errorHandler(401, "Wrong email or password"));
+      next(errorHandler(401, "Wrong email/username or password"));
     }
 
     // Compare the hashed password in database with the provided password
-    const validPassword = await bcryptjs.compare(password, validUser.password);
+    const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
-      next(errorHandler(401, "Wrong email or password"));
+      next(errorHandler(401, "Wrong email/username or password"));
     }
 
     // Create a JWT token
