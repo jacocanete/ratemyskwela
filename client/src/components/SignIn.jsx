@@ -14,11 +14,11 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import { toast } from 'sonner';
 
 export default function SignIn({ setSignIn, setShowModal }) {
   const [formData, setFormData] = useState({});
   const { loading, error: errorMessage } = useSelector((state) => state.user);
-  const [toasts, setToasts] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,27 +43,38 @@ export default function SignIn({ setSignIn, setShowModal }) {
     e.preventDefault();
     if ((!formData.email && !formData.username) || !formData.password) {
       return dispatch(signInFailure("All fields are required."));
+      toast.error("All fields are required.");
     }
-    try {
-      dispatch(signInStart());
-      const res = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(signInFailure(data.message));
-      }
-      if (res.ok) {
+
+    dispatch(signInStart());
+
+    const signInPromise = fetch("/api/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success === false) {
+          dispatch(signInFailure(data.message));
+          throw new Error(data.message);
+        }
         dispatch(signInSuccess(data));
         setShowModal(false);
-      }
-    } catch (error) {
-      dispatch(signInFailure("error.message"));
-    }
+        return data;
+      })
+      .catch((error) => {
+        dispatch(signInFailure(error.message));
+        throw error;
+      });
+
+    toast.promise(signInPromise, {
+      loading: 'Signing in...',
+      success: 'Signed in successfully',
+      error: (err) => `Sign in failed: ${err.message}`,
+    });
   };
 
   return (

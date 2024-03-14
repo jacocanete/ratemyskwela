@@ -36,7 +36,6 @@ export default function Header() {
         dispatch(signOutFailure(data.message));
       } else{
         dispatch(signOutSuccess());
-        navigate("/");
       }
     } catch (error) {
       dispatch(signOutFailure(data.message));
@@ -76,9 +75,7 @@ export default function Header() {
               inline
               label={
                 <Avatar
-                  placeholderInitials={currentUser.username
-                    .charAt(0)
-                    .toUpperCase()}
+                  placeholderInitials={currentUser.initials}
                   rounded
                 />
               }
@@ -117,10 +114,10 @@ export default function Header() {
           </Modal.Body>
         ) : (
           <Modal.Body>
-            <SignUp setSignIn={setSignIn} />
+            <SignUp setSignIn={setSignIn} setShowModal={setShowModal}/>
           </Modal.Body>
         )}
-      </Modal>
+      </Modal> 
     </>
   );
 }

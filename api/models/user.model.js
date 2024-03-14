@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    initials: {
+      type: String,
+      required: true,
+    }
   },
   {
     timestamps: true,
