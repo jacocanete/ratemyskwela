@@ -106,3 +106,58 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const google = async (req, res, next) => {
+  const { email, name } = req.body;
+  try {
+    const user = await User.findOne({email});
+    if (user) {
+      const token = jwt.sign(
+        {
+          userId: user._id,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      const { password, ...rest } = user._doc;
+      res
+        .status(200)
+        .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    } else {
+      const generatedPassword = 
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
+      const hashedPassword = bcryptjs.hashSync(generatedPassword, 12);
+      const placeholderInitials = name[0].toUpperCase();
+      const newUser = new User({
+        username:
+          name.toLowerCase().split(" ").join("") +
+          Math.random().toString(9).slice(-4),
+        // Jaco Canete => jacocanete
+        email,
+        password: hashedPassword,
+        initials: placeholderInitials,
+      });
+      await newUser.save();
+      const token = jwt.sign(
+        {
+          userId: newUser._id,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      const { password, ...rest } = newUser._doc;
+      res
+        .status(201)
+        .cookie("access_token", token, {
+          httpOnly: true,
+        })
+        .json(rest);
+    }
+  } catch (error) {
+    next(error);
+  }
+};
