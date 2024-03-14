@@ -81,6 +81,7 @@ export default function SignUp({ setSignIn, setShowModal }) {
         <div>
           <FloatingLabel
             id="email"
+            type="email"
             required
             onChange={handleChange}
             variant="outlined"
