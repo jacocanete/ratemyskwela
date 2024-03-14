@@ -16,6 +16,7 @@ import SignUp from "./SignUp";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signOutStart, signOutFailure, signOutSuccess } from "../redux/user/userSlice";
+import { toast } from "sonner";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -25,22 +26,36 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const [signIn, setSignIn] = useState(true);
 
-  const handleSignout = async () => {
-    try {
-      dispatch(signOutStart());
-      const res = await fetch("/api/user/signout", {
-        method: "POST",
-      });
-      const data = await res.json();
+  const handleSignout = () => {
+  dispatch(signOutStart());
+
+  const signOutPromise = fetch("/api/user/signout", {
+    method: "POST",
+    })
+    .then((res) => {
       if(!res.ok){
-        dispatch(signOutFailure(data.message));
-      } else{
-        dispatch(signOutSuccess());
+        return res.json().then((data) => {
+          dispatch(signOutFailure(data.message));
+          throw new Error(data.message);
+        });
       }
-    } catch (error) {
-      dispatch(signOutFailure(data.message));
-    }
-  }
+      return res.json();
+    })
+    .then((data) => {
+      dispatch(signOutSuccess());
+      return data;
+    })
+    .catch((error) => {
+      dispatch(signOutFailure(error.message));
+      throw error;
+    });
+    
+    toast.promise(signOutPromise, {
+      loading: 'Signing out...',
+      success: 'Signed out successfully',
+      error: (err) => `Sign out failed: ${err.message}`,
+    });
+  };
 
   const handleSignin = () => {
     setShowModal(true);
