@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -20,6 +20,7 @@ import { signOutStart, signOutFailure, signOutSuccess } from "../redux/user/user
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [signIn, setSignIn] = useState(true);
@@ -35,6 +36,7 @@ export default function Header() {
         dispatch(signOutFailure(data.message));
       } else{
         dispatch(signOutSuccess());
+        navigate("/");
       }
     } catch (error) {
       dispatch(signOutFailure(data.message));
