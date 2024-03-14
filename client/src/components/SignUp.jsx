@@ -34,12 +34,16 @@ export default function SignUp({ setSignIn, setShowModal }) {
       },
       body: JSON.stringify(formData),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success === false) {
-          dispatch(signUpFailure(data.message));
-          throw new Error(data.message);
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((data) => {
+            dispatch(signUpFailure(data.message));
+            throw new Error(data.message);
+          });
         }
+        return res.json();
+      })
+      .then((data) => {
         dispatch(signUpSuccess(data));
         setShowModal(false);
         return data;

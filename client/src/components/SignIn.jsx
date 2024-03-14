@@ -55,12 +55,16 @@ export default function SignIn({ setSignIn, setShowModal }) {
       },
       body: JSON.stringify(formData),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success === false) {
-          dispatch(signInFailure(data.message));
-          throw new Error(data.message);
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((data) => {
+            dispatch(signInFailure(data.message));
+            throw new Error(data.message);
+          });
         }
+        return res.json();
+      })
+      .then((data) => {
         dispatch(signInSuccess(data));
         setShowModal(false);
         return data;
