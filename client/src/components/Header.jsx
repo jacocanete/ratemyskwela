@@ -24,9 +24,9 @@ export default function Header() {
       <Navbar className="max-w-6xl mx-auto sm:px-0 py-5 dark:bg-slate-900">
         <Navbar.Brand
           as={Link}
+          to="/"
           href="https://flowbite-react.com"
-          className="gap-1"
-        >
+          className="gap-1">
           <HiAcademicCap className="w-10 h-10 text-pink-500 dark:text-pink-300" />
           <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">
             RateMyUni
@@ -37,8 +37,7 @@ export default function Header() {
             onClick={() => dispatch(toggleTheme())}
             className="w-12 h-10 hidden sm:inline"
             color="gray"
-            pill
-          >
+            pill>
             {theme === "light" ? <FaMoon /> : <FaSun />}
           </Button>
           <Button onClick={handleSignin} gradientMonochrome="pink">
@@ -54,8 +53,7 @@ export default function Header() {
           setShowModal(false);
         }}
         popup
-        className={theme}
-      >
+        className={theme}>
         <Modal.Header />
         {signIn ? (
           <Modal.Body>
