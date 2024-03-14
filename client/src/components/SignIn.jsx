@@ -15,6 +15,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import { toast } from 'sonner';
+import OAuth from "./OAuth";
 
 export default function SignIn({ setSignIn, setShowModal }) {
   const [formData, setFormData] = useState({});
@@ -114,17 +115,14 @@ export default function SignIn({ setSignIn, setShowModal }) {
             className="dark:bg-gray-700"
           />
         </div>
-        <div className="w-full">
-          <Button gradientMonochrome="pink" className="w-full" type="submit">
-            {loading ? (
-              <>
-                <Spinner size="sm" />
-                <span className="pl-2">Loading...</span>
-              </>
-            ) : (
-              "Login to your account"
-            )}
+        <div className="w-full flex flex-col gap-3">
+          <Button gradientMonochrome="pink" className="w-full" type="submit" disabled={loading}>
+            Login to your account
           </Button>
+          <span className="text-center dark:text-gray-200 text-xs my-[0.5] font-bold">
+            Or
+          </span>
+          <OAuth setShowModal={setShowModal}/>
         </div>
       </form>
       <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">

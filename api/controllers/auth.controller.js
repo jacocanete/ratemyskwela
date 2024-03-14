@@ -101,7 +101,7 @@ export const signin = async (req, res, next) => {
       .cookie("access_token", token, {
         httpOnly: true,
       })
-      .json(rest)
+      .json(rest);
   } catch (error) {
     next(error);
   }
@@ -110,11 +110,11 @@ export const signin = async (req, res, next) => {
 export const google = async (req, res, next) => {
   const { email, name } = req.body;
   try {
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
     if (user) {
       const token = jwt.sign(
         {
-          userId: user._id,
+          id: user._id,
         },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
@@ -127,7 +127,7 @@ export const google = async (req, res, next) => {
         })
         .json(rest);
     } else {
-      const generatedPassword = 
+      const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
       const hashedPassword = bcryptjs.hashSync(generatedPassword, 12);
@@ -144,7 +144,7 @@ export const google = async (req, res, next) => {
       await newUser.save();
       const token = jwt.sign(
         {
-          userId: newUser._id,
+          id: newUser._id,
         },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }

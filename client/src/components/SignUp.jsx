@@ -8,8 +8,11 @@ import {
   signUpSuccess,
 } from "../redux/user/userSlice";
 import { toast } from "sonner";
+import OAuth from "./OAuth";
+import { useSelector } from "react-redux";
 
 export default function SignUp({ setSignIn, setShowModal }) {
+  const { loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
 
@@ -104,10 +107,14 @@ export default function SignUp({ setSignIn, setShowModal }) {
             className="dark:bg-gray-700"
           />
         </div>
-        <div className="w-full">
-          <Button gradientMonochrome="pink" className="w-full" type="submit">
+        <div className="w-full flex flex-col gap-3">
+          <Button gradientMonochrome="pink" className="w-full" type="submit" disabled={loading}>
             Create your account
           </Button>
+          <span className="text-center dark:text-gray-200 text-xs my-[0.5] font-bold">
+            Or
+          </span>
+          <OAuth setShowModal={setShowModal}/>
         </div>
       </form>
 
