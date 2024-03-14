@@ -74,13 +74,13 @@ export const signin = async (req, res, next) => {
     // Find the user by email or username
     const validUser = await User.findOne({ $or: [{ email }, { username }] });
     if (!validUser) {
-      next(errorHandler(401, "Invalid email/username or password"));
+      return next(errorHandler(401, "Invalid email/username or password"));
     }
 
     // Compare the hashed password in database with the provided password
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
-      next(errorHandler(401, "Invalid email/username or password"));
+      return next(errorHandler(401, "Invalid email/username or password"));
     }
 
     // Create a JWT token
@@ -101,7 +101,7 @@ export const signin = async (req, res, next) => {
       .cookie("access_token", token, {
         httpOnly: true,
       })
-      .json(rest);
+      .json(rest)
   } catch (error) {
     next(error);
   }
