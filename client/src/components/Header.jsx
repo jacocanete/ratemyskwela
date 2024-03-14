@@ -9,12 +9,13 @@ import {
   Avatar,
 } from "flowbite-react";
 import { FaMoon, FaSun, FaRegUserCircle } from "react-icons/fa";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { HiAcademicCap } from "react-icons/hi";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signOutStart, signOutFailure, signOutSuccess } from "../redux/user/userSlice";
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -22,6 +23,23 @@ export default function Header() {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [signIn, setSignIn] = useState(true);
+
+  const handleSignout = async () => {
+    try {
+      dispatch(signOutStart());
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if(!res.ok){
+        dispatch(signOutFailure(data.message));
+      } else{
+        dispatch(signOutSuccess());
+      }
+    } catch (error) {
+      dispatch(signOutFailure(data.message));
+    }
+  }
 
   const handleSignin = () => {
     setShowModal(true);
@@ -71,7 +89,7 @@ export default function Header() {
               </Dropdown.Header>
               <Dropdown.Item>Profile</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
             </Dropdown>
           ) : (
             <Button onClick={handleSignin} gradientMonochrome="pink">
