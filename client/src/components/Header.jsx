@@ -69,11 +69,7 @@ export default function Header() {
   return (
     <>
       <Navbar className="max-w-6xl mx-auto sm:px-0 py-5 dark:bg-slate-900">
-        <Navbar.Brand
-          as={Link}
-          href="https://flowbite-react.com"
-          className="gap-1"
-        >
+        <Navbar.Brand as={Link} to="/" className="gap-1">
           <HiAcademicCap className="w-10 h-10 text-pink-500 dark:text-pink-300" />
           <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">
             RateMyUni
@@ -106,7 +102,9 @@ export default function Header() {
                   {currentUser.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Profile</Dropdown.Item>
+              <Dropdown.Item as={Link} to="/dashboard">
+                Profile
+              </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
             </Dropdown>

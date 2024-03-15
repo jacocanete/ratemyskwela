@@ -36,7 +36,7 @@ export default function DashProfile() {
               variant="outlined"
               label="Username"
               defaultValue={currentUser.username}
-              className="dark:bg-gray-700"
+              className="dark:bg-gray-800"
             />
           </div>
           <div>
@@ -46,7 +46,7 @@ export default function DashProfile() {
               variant="outlined"
               label="Email"
               defaultValue={currentUser.email}
-              className="dark:bg-gray-700"
+              className="dark:bg-gray-800"
             />
           </div>
           <div className="relative">
@@ -56,7 +56,7 @@ export default function DashProfile() {
               required
               variant="outlined"
               label="Password"
-              className="dark:bg-gray-700"
+              className="dark:bg-gray-800"
             />
             <Button
               type="button"
