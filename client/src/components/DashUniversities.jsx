@@ -153,7 +153,6 @@ export default function DashUniversities() {
             </div>
             <Textarea
               id="description"
-              required
               rows={4}
               className="min-h-24"
               required
