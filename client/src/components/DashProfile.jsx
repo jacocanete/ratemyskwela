@@ -105,16 +105,19 @@ export default function DashProfile() {
   return (
     <>
       <Card className="max-w-full flex flex-col shadow-md">
-        <div className="min-w-lg p-6">
+        <div className="p-6">
+          <h2 className="text-2xl text-center font-medium mb-5">
+            Edit Account
+          </h2>
           <Avatar
             placeholderInitials={currentUser.initials}
             rounded
             size="lg"
             className="mb-4"
           />
-          <h5 className="mb-1 text-xl text-center font-medium text-gray-900 dark:text-white">
+          <h3 className="mb-1 text-xl text-center font-medium text-gray-900 dark:text-white">
             @{currentUser.username}
-          </h5>
+          </h3>
           <div className="flex justify-center">
             <span className="text-sm text-center text-gray-500 dark:text-gray-400">
               {currentUser.email}
@@ -122,7 +125,7 @@ export default function DashProfile() {
           </div>
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-2 my-5 max-w-full"
+            className="flex flex-col gap-2 my-5 max-w-xl mx-auto"
           >
             <div>
               <FloatingLabel
