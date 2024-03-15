@@ -12,7 +12,6 @@ import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useSelector } from "react-redux";
-import CreateUniversity from "./pages/CreateUniversity";
 
 export default function App() {
   const { theme } = useSelector((state) => state.theme);
@@ -27,9 +26,6 @@ export default function App() {
         <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route element={<OnlyAdminPrivateRoute />}>
-          <Route path="/create-university" element={<CreateUniversity />} />
         </Route>
       </Routes>
       <Footer />
