@@ -15,8 +15,10 @@ export const signout = (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   // Check if the user is trying to update their own account
-  if (req.user.id !== req.params.id) {
-    return res.status(403).json("You can only update your account!");
+  if (req.user.id !== req.params.userId) {
+    return next(
+      errorHandler(403, "You are not allowed to update this account")
+    );
   }
 
   // Check if the user is trying to update their password
@@ -51,7 +53,7 @@ export const updateUser = async (req, res, next) => {
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id,
+      req.params.userId,
       {
         $set: {
           username: req.body.username,

@@ -2,13 +2,61 @@ import { useState } from "react";
 import { Avatar, Button, Card, Dropdown, FloatingLabel } from "flowbite-react";
 import { FaRegUserCircle, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import {
+  updateFailure,
+  updateStart,
+  updateSuccess,
+} from "../redux/user/userSlice";
 
 export default function DashProfile() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  console.log(formData);
+  console.log(currentUser);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const toastID = toast.loading("Updating account...");
+
+    if (Object.keys(formData).length === 0) {
+      toast.error("No changes detected!", { id: toastID });
+      return;
+    }
+
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(updateFailure(data.message));
+        toast.error(`${data.message}`, { id: toastID });
+      } else {
+        dispatch(updateSuccess(data));
+        toast.success("Account updated successfully", { id: toastID });
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+      toast.error(`${error.message}`, { id: toastID });
+    }
   };
 
   return (
@@ -28,35 +76,38 @@ export default function DashProfile() {
             {currentUser.email}
           </span>
         </div>
-        <form className="flex flex-col gap-2 my-5 max-w-full">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-2 my-5 max-w-full"
+        >
           <div>
             <FloatingLabel
               id="username"
-              required
               variant="outlined"
               label="Username"
               defaultValue={currentUser.username}
               className="dark:bg-gray-800"
+              onChange={handleChange}
             />
           </div>
           <div>
             <FloatingLabel
               id="email"
-              required
               variant="outlined"
               label="Email"
               defaultValue={currentUser.email}
               className="dark:bg-gray-800"
+              onChange={handleChange}
             />
           </div>
           <div className="relative">
             <FloatingLabel
               id="password"
               type={showPassword ? "text" : "password"}
-              required
               variant="outlined"
               label="Password"
               className="dark:bg-gray-800"
+              onChange={handleChange}
             />
             <Button
               type="button"
@@ -68,10 +119,10 @@ export default function DashProfile() {
             </Button>
           </div>
           <div className="justify-between flex space-x-3">
-            <Button color="green" className="flex-grow">
+            <Button type="submit" color="green" className="flex-grow">
               Update Account
             </Button>
-            <Button color="red" className="flex-grow">
+            <Button type="button" color="red" className="flex-grow">
               Delete Account
             </Button>
           </div>
