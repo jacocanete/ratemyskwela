@@ -29,7 +29,7 @@ export default function Home() {
         {universities.map((university) => (
           <Card
             key={university._id}
-            className="mx-auto max-w-sm ring-pink-500 dark:ring-gray-800 hover:ring-1 flex flex-col p-2 bg-white dark:bg-gray-800 shadow-md dark:shadow-none rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+            className="cursor-pointer mx-auto max-w-sm ring-pink-500 dark:ring-gray-800 hover:ring-1 flex flex-col p-2 bg-white dark:bg-gray-800 shadow-md dark:shadow-none rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
           >
             <div className="flex">
               <Avatar
