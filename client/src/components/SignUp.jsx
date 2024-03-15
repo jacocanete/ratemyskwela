@@ -55,10 +55,10 @@ export default function SignUp({ setSignIn, setShowModal }) {
         dispatch(signUpFailure(error.message));
         throw error;
       });
-  
+
     toast.promise(signUpPromise, {
-      loading: 'Signing up...',
-      success: 'Signed up successfully',
+      loading: "Signing up...",
+      success: "Signed up successfully",
       error: (err) => `Sign up failed: ${err.message}`,
     });
   };
@@ -74,7 +74,7 @@ export default function SignUp({ setSignIn, setShowModal }) {
       <h3 className="mb-4 text-center text-xl font-medium text-gray-900 dark:text-white">
         Sign up to our platform
       </h3>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div>
           <FloatingLabel
             id="username"
@@ -108,13 +108,18 @@ export default function SignUp({ setSignIn, setShowModal }) {
           />
         </div>
         <div className="w-full flex flex-col gap-3">
-          <Button gradientMonochrome="pink" className="w-full" type="submit" disabled={loading}>
+          <Button
+            gradientMonochrome="pink"
+            className="w-full"
+            type="submit"
+            disabled={loading}
+          >
             Create your account
           </Button>
           <span className="text-center dark:text-gray-200 text-xs my-[0.5] font-bold">
             Or
           </span>
-          <OAuth setShowModal={setShowModal}/>
+          <OAuth setShowModal={setShowModal} />
         </div>
       </form>
 

@@ -14,7 +14,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
-import { toast } from 'sonner';
+import { toast } from "sonner";
 import OAuth from "./OAuth";
 
 export default function SignIn({ setSignIn, setShowModal }) {
@@ -76,8 +76,8 @@ export default function SignIn({ setSignIn, setShowModal }) {
       });
 
     toast.promise(signInPromise, {
-      loading: 'Signing in...',
-      success: 'Signed in successfully',
+      loading: "Signing in...",
+      success: "Signed in successfully",
       error: (err) => `Sign in failed: ${err.message}`,
     });
   };
@@ -86,14 +86,11 @@ export default function SignIn({ setSignIn, setShowModal }) {
     <div className="space-y-6">
       <div className="flex justify-center gap-1">
         <HiAcademicCap className="w-12 h-12 text-pink-500 dark:text-pink-300" />
-        <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
-          RateMyUni
-        </span>
       </div>
       <h3 className="mb-4 text-center text-xl font-medium text-gray-900 dark:text-white">
         Sign in to our platform
       </h3>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div>
           <FloatingLabel
             id="identifier"
@@ -116,13 +113,18 @@ export default function SignIn({ setSignIn, setShowModal }) {
           />
         </div>
         <div className="w-full flex flex-col gap-3">
-          <Button gradientMonochrome="pink" className="w-full" type="submit" disabled={loading}>
+          <Button
+            gradientMonochrome="pink"
+            className="w-full"
+            type="submit"
+            disabled={loading}
+          >
             Login to your account
           </Button>
           <span className="text-center dark:text-gray-200 text-xs my-[0.5] font-bold">
             Or
           </span>
-          <OAuth setShowModal={setShowModal}/>
+          <OAuth setShowModal={setShowModal} />
         </div>
       </form>
       <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">

@@ -15,7 +15,11 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
-import { signOutStart, signOutFailure, signOutSuccess } from "../redux/user/userSlice";
+import {
+  signOutStart,
+  signOutFailure,
+  signOutSuccess,
+} from "../redux/user/userSlice";
 import { toast } from "sonner";
 
 export default function Header() {
@@ -27,32 +31,32 @@ export default function Header() {
   const [signIn, setSignIn] = useState(true);
 
   const handleSignout = () => {
-  dispatch(signOutStart());
+    dispatch(signOutStart());
 
-  const signOutPromise = fetch("/api/user/signout", {
-    method: "POST",
+    const signOutPromise = fetch("/api/user/signout", {
+      method: "POST",
     })
-    .then((res) => {
-      if(!res.ok){
-        return res.json().then((data) => {
-          dispatch(signOutFailure(data.message));
-          throw new Error(data.message);
-        });
-      }
-      return res.json();
-    })
-    .then((data) => {
-      dispatch(signOutSuccess());
-      return data;
-    })
-    .catch((error) => {
-      dispatch(signOutFailure(error.message));
-      throw error;
-    });
-    
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((data) => {
+            dispatch(signOutFailure(data.message));
+            throw new Error(data.message);
+          });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        dispatch(signOutSuccess());
+        return data;
+      })
+      .catch((error) => {
+        dispatch(signOutFailure(error.message));
+        throw error;
+      });
+
     toast.promise(signOutPromise, {
-      loading: 'Signing out...',
-      success: 'Signed out successfully',
+      loading: "Signing out...",
+      success: "Signed out successfully",
       error: (err) => `Sign out failed: ${err.message}`,
     });
   };
@@ -78,21 +82,21 @@ export default function Header() {
         <div className="flex gap-2 md:order-2">
           <Button
             onClick={() => dispatch(toggleTheme())}
-            className="w-12 h-10 hidden sm:inline"
-            color="gray"
-            pill
+            className="hidden sm:inline"
+            color=""
           >
-            {theme === "light" ? <FaMoon /> : <FaSun />}
+            {theme === "light" ? (
+              <FaMoon className="w-4 h-4" />
+            ) : (
+              <FaSun className="w-4 h-4" />
+            )}
           </Button>
           {currentUser ? (
             <Dropdown
               arrowIcon={false}
               inline
               label={
-                <Avatar
-                  placeholderInitials={currentUser.initials}
-                  rounded
-                />
+                <Avatar placeholderInitials={currentUser.initials} rounded />
               }
             >
               <Dropdown.Header>
@@ -129,10 +133,10 @@ export default function Header() {
           </Modal.Body>
         ) : (
           <Modal.Body>
-            <SignUp setSignIn={setSignIn} setShowModal={setShowModal}/>
+            <SignUp setSignIn={setSignIn} setShowModal={setShowModal} />
           </Modal.Body>
         )}
-      </Modal> 
+      </Modal>
     </>
   );
 }

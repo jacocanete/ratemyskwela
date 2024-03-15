@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
+import universityRoutes from "./routes/university.route.js";
 import cookieParser from "cookie-parser";
 
 // Load environment variables
@@ -32,6 +33,7 @@ app.listen(3000, () => {
 // Add middleware for JSON parsing
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/university", universityRoutes);
 
 // Error handling middleware
 app.use((error, req, res, next) => {
