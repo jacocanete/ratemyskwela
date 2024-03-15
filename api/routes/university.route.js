@@ -1,12 +1,9 @@
 import express from "express";
-import {
-  create,
-  getUniversities,
-} from "../controllers/university.controller.js";
+import { create, read } from "../controllers/university.controller.js";
 
 const router = express.Router();
 
 router.post("/create", create);
-router.get("/read", getUniversities);
+router.get("/read", read);
 
 export default router;

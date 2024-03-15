@@ -31,7 +31,7 @@ export const create = async (req, res, next) => {
   }
 };
 
-export const getUniversities = async (req, res, next) => {
+export const read = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;

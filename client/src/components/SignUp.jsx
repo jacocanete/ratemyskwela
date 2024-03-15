@@ -67,9 +67,6 @@ export default function SignUp({ setSignIn, setShowModal }) {
     <div className="space-y-6">
       <div className="flex justify-center gap-1">
         <HiAcademicCap className="w-12 h-12 text-pink-500 dark:text-pink-300" />
-        <span className="self-center whitespace-nowrap text-2xl font-bold dark:text-white">
-          RateMyUni
-        </span>
       </div>
       <h3 className="mb-4 text-center text-xl font-medium text-gray-900 dark:text-white">
         Sign up to our platform
