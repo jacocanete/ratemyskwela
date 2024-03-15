@@ -10,11 +10,17 @@ import {
 import { toast } from "sonner";
 import OAuth from "./OAuth";
 import { useSelector } from "react-redux";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignUp({ setSignIn, setShowModal }) {
   const { loading } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -93,16 +99,24 @@ export default function SignUp({ setSignIn, setShowModal }) {
             className="dark:bg-gray-700"
           />
         </div>
-        <div>
+        <div className="relative">
           <FloatingLabel
             id="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             required
             onChange={handleChange}
             variant="outlined"
             label="Password"
             className="dark:bg-gray-700"
           />
+          <Button
+            type="button"
+            onClick={handleShowPassword}
+            className="absolute right-1.5 top-1.5 bg-transparent dark:bg-transparent w-10 border-0"
+            color="none"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </Button>
         </div>
         <div className="w-full flex flex-col gap-3">
           <Button
