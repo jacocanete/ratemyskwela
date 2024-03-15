@@ -82,8 +82,9 @@ export default function Header() {
         <div className="flex gap-2 md:order-2">
           <Button
             onClick={() => dispatch(toggleTheme())}
-            className="hidden sm:inline"
+            className="hidden sm:inline ring-pink-300 focus:bg-pink-100 dark:ring-slate-600 dark:focus:bg-slate-800"
             color=""
+            size="sm"
           >
             {theme === "light" ? (
               <FaMoon className="w-4 h-4" />

@@ -24,6 +24,10 @@ const universitySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    website: {
+      type: String,
+      required: true,
+    },
     averageRating: {
       type: Number,
       default: 0,

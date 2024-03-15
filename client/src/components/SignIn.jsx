@@ -16,6 +16,7 @@ import {
 } from "../redux/user/userSlice";
 import { toast } from "sonner";
 import OAuth from "./OAuth";
+import { FaEye } from "react-icons/fa";
 
 export default function SignIn({ setSignIn, setShowModal }) {
   const [formData, setFormData] = useState({});
