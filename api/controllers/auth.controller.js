@@ -62,7 +62,7 @@ export const signup = async (req, res, next) => {
     // Create a JWT token
     const token = jwt.sign(
       {
-        userId: newUser._id,
+        id: newUser._id,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
@@ -115,7 +115,7 @@ export const signin = async (req, res, next) => {
     // Create a JWT token
     const token = jwt.sign(
       {
-        userId: validUser._id,
+        id: validUser._id,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
@@ -165,7 +165,7 @@ export const google = async (req, res, next) => {
         username:
           name.toLowerCase().split(" ").join("") +
           Math.random().toString(9).slice(-4),
-        // Jaco Canete => jacocanete
+        // Jaco Canete => jacocanete12345
         email,
         password: hashedPassword,
         initials: placeholderInitials,

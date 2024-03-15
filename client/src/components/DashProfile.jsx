@@ -24,9 +24,6 @@ export default function DashProfile() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  console.log(formData);
-  console.log(currentUser);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const toastID = toast.loading("Updating account...");
@@ -52,6 +49,7 @@ export default function DashProfile() {
       } else {
         dispatch(updateSuccess(data));
         toast.success("Account updated successfully", { id: toastID });
+        setFormData({});
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
@@ -119,10 +117,20 @@ export default function DashProfile() {
             </Button>
           </div>
           <div className="justify-between flex space-x-3">
-            <Button type="submit" color="green" className="flex-grow">
+            <Button
+              type="submit"
+              color="green"
+              className="flex-grow"
+              disabled={loading}
+            >
               Update Account
             </Button>
-            <Button type="button" color="red" className="flex-grow">
+            <Button
+              type="button"
+              color="red"
+              className="flex-grow"
+              disabled={loading}
+            >
               Delete Account
             </Button>
           </div>
