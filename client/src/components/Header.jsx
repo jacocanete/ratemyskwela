@@ -68,7 +68,7 @@ export default function Header() {
 
   return (
     <>
-      <Navbar className="max-w-6xl mx-auto sm:px-0 py-5 dark:bg-slate-900">
+      <Navbar className="max-w-6xl mx-auto sm:px-0 py-5 dark:bg-slate-900 transition duration-300 ease-in-out">
         <Navbar.Brand as={Link} to="/" className="gap-1">
           <HiAcademicCap className="w-10 h-10 text-pink-500 dark:text-pink-300" />
           <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">

@@ -119,7 +119,7 @@ export default function DashUniversities() {
   };
 
   return (
-    <Card className="max-w-full flex flex-col shadow-md">
+    <Card className="max-w-full flex flex-col shadow-md border-0 transition duration-300 ease-in-out ">
       <div className="p-6">
         <h2 className="text-2xl text-center font-medium mb-5">
           Add University

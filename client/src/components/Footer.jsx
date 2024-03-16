@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function FooterCom() {
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto transition duration-300 ease-in-out ">
       <Footer container>
         <div className="w-full text-center">
           <div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
