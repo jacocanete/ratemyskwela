@@ -28,15 +28,27 @@ const universitySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    averageRating: {
+    overallRating: {
       type: Number,
       default: 0,
     },
-    sumRatings: {
+    educationRating: {
       type: Number,
       default: 0,
     },
-    countRatings: {
+    facilityRating: {
+      type: Number,
+      default: 0,
+    },
+    socialRating: {
+      type: Number,
+      default: 0,
+    },
+    adminRating: {
+      type: Number,
+      default: 0,
+    },
+    totalRatings: {
       type: Number,
       default: 0,
     },

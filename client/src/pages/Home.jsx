@@ -35,6 +35,7 @@ export default function Home() {
       } catch (error) {
         setLoading(false);
         toast.error("Failed to fetch universities.");
+        setShowMore(false);
       }
     };
     fetchUniversities();
@@ -107,11 +108,7 @@ export default function Home() {
       </div>
       <div className="w-full my-8">
         {showMore && (
-          <Button
-            onClick={handleShowMore}
-            className="mx-auto w-full"
-            color="pink"
-          >
+          <Button onClick={handleShowMore} className="mx-auto" color="pink">
             Show more
           </Button>
         )}
