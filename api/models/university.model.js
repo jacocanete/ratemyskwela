@@ -32,7 +32,11 @@ const universitySchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    totalRatings: {
+    sumRatings: {
+      type: Number,
+      default: 0,
+    },
+    countRatings: {
       type: Number,
       default: 0,
     },
