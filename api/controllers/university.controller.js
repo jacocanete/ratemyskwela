@@ -5,8 +5,22 @@ export const create = async (req, res, next) => {
   if (!req.body.title || !req.body.description) {
     return next(errorHandler(400, "Title and description are required."));
   }
+
   if (!req.body.location) {
     return next(errorHandler(400, "Location is required."));
+  }
+
+  if (!req.body.logo) {
+    return next(errorHandler(400, "Logo is required."));
+  }
+  if (!req.body.website) {
+    return next(errorHandler(400, "Website is required."));
+  }
+
+  if (req.body.description.length < 100) {
+    return next(
+      errorHandler(400, "Description must be at least 100 characters.")
+    );
   }
 
   const slug = req.body.title

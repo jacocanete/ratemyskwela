@@ -12,8 +12,6 @@ import {
 } from "flowbite-react";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import "react-quill/dist/quill.snow.css";
-import ReactQuill from "react-quill";
 import { toast } from "sonner";
 import { app } from "../firebase";
 import { set } from "mongoose";

@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Avatar, Rating, Spinner } from "flowbite-react";
+import {
+  Button,
+  Card,
+  Avatar,
+  Rating,
+  Spinner,
+  Pagination,
+} from "flowbite-react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
@@ -9,6 +16,7 @@ export default function Home() {
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showMore, setShowMore] = useState(true);
 
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -20,6 +28,9 @@ export default function Home() {
         if (res.ok) {
           setLoading(false);
           setUniversities(data.universities);
+          if (data.universities.length < 9) {
+            setShowMore(false);
+          }
         }
       } catch (error) {
         setLoading(false);
@@ -28,6 +39,22 @@ export default function Home() {
     };
     fetchUniversities();
   }, []);
+
+  const handleShowMore = async () => {
+    const startIndex = universities.length;
+    try {
+      const res = await fetch(`/api/university/read?startIndex=${startIndex}`);
+      const data = await res.json();
+      if (res.ok) {
+        setUniversities((prev) => [...prev, ...data.universities]);
+        if (data.universities.length < 9) {
+          setShowMore(false);
+        }
+      }
+    } catch (error) {
+      toast.error("Failed to fetch universities.");
+    }
+  };
 
   if (loading) {
     return (
@@ -44,7 +71,7 @@ export default function Home() {
           <Link to={`/${university.slug}`} className="flex">
             <Card
               key={university._id}
-              className="cursor-pointer mx-auto max-w-sm ring-pink-500 dark:ring-gray-800 hover:ring-1 flex flex-col p-2 bg-white dark:bg-gray-800 shadow-md border-0 dark:shadow-none rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+              className="w-full cursor-pointer mx-auto max-w-sm ring-pink-500 dark:ring-gray-800 hover:ring-1 flex flex-col p-2 bg-white dark:bg-gray-800 shadow-md border-0 dark:shadow-none rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
             >
               <div className="flex">
                 <Avatar
@@ -55,9 +82,9 @@ export default function Home() {
                   rounded
                 />
               </div>
-              <h5 className="text-2xl font-bold tracking-tight text-gray-700 dark:text-white">
+              <h2 className=" text-2xl font-bold tracking-tight text-gray-700 dark:text-white">
                 {university.title}
-              </h5>
+              </h2>
               <p className="mt-auto font-normal text-gray-600 dark:text-gray-400 line-clamp-4">
                 {university.description}
               </p>
@@ -77,6 +104,17 @@ export default function Home() {
             </Card>
           </Link>
         ))}
+      </div>
+      <div className="w-full my-8">
+        {showMore && (
+          <Button
+            onClick={handleShowMore}
+            className="mx-auto w-full"
+            color="pink"
+          >
+            Show more
+          </Button>
+        )}
       </div>
     </div>
   );

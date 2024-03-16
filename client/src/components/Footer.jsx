@@ -23,7 +23,7 @@ export default function FooterCom() {
             </Footer.LinkGroup>
           </div>
           <Footer.Divider />
-          <Footer.Copyright href="#" by="RateMyUni™" year={2024} />
+          <Footer.Copyright href="#" by="RateMyUni by Jaco" year={2024} />
         </div>
       </Footer>
     </div>
