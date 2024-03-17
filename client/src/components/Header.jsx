@@ -47,6 +47,7 @@ export default function Header() {
       })
       .then((data) => {
         dispatch(signOutSuccess());
+        navigate("/");
         return data;
       })
       .catch((error) => {

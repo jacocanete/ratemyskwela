@@ -13,10 +13,13 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   const { currentUser } = useSelector((state) => state.user);
+  const [totalUniversities, setTotalUniversities] = useState(0);
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showMore, setShowMore] = useState(true);
+
+  console.log(totalUniversities);
 
   useEffect(() => {
     const fetchUniversities = async () => {
@@ -24,9 +27,9 @@ export default function Home() {
         setLoading(true);
         const res = await fetch("/api/university/read");
         const data = await res.json();
-        console.log(data);
         if (res.ok) {
           setLoading(false);
+          setTotalUniversities(data.totalUniversities);
           setUniversities(data.universities);
           if (data.universities.length < 9) {
             setShowMore(false);
@@ -106,9 +109,13 @@ export default function Home() {
           </Link>
         ))}
       </div>
-      <div className="w-full my-8">
+      <div className="w-full my-8 flex flex-row justify-between">
+        <p>
+          Showing <span className="font-bold">{universities.length}</span> of{" "}
+          <span className="font-bold">{totalUniversities}</span> results
+        </p>
         {showMore && (
-          <Button onClick={handleShowMore} className="mx-auto" color="pink">
+          <Button onClick={handleShowMore} color="pink">
             Show more
           </Button>
         )}

@@ -12,11 +12,13 @@ import UniPage from "./pages/UniPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { useSelector } from "react-redux";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   const { theme } = useSelector((state) => state.theme);
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
