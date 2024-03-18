@@ -17,6 +17,7 @@ export default function University() {
   const [error, setError] = useState(null);
   const [university, setUniversity] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const fetchUniversity = async () => {
@@ -39,7 +40,32 @@ export default function University() {
         setError(true);
       }
     };
+
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch(
+          `/api/review/read?universityId=${university._id}`
+        );
+        const data = await res.json();
+        if (!res.ok) {
+          setError(true);
+          setLoading(false);
+          return;
+        }
+        if (res.ok) {
+          setReviews(data.reviews);
+          setLoading(false);
+          setError(false);
+        }
+      } catch (error) {
+        setLoading(false);
+        setError(true);
+      }
+    };
+
     fetchUniversity();
+
+    fetchReviews();
   }, [uniSlug]);
 
   if (loading) {
@@ -50,13 +76,11 @@ export default function University() {
     );
   }
 
-  console.log(university);
-
   function getStarColor(rating) {
     if (rating >= 4) {
       return "text-green-500";
     } else if (rating >= 3) {
-      return "text-yellow-500";
+      return "text-yellow-300";
     } else if (rating >= 2) {
       return "text-orange-500";
     } else if (rating >= 1) {
@@ -76,7 +100,6 @@ export default function University() {
             size="xl"
             className="border rounded-full dark:border-gray-800"
             rounded
-            objectFit="cover"
           />
         </div>
         <div className="mt-10 space-y-3">
@@ -98,7 +121,13 @@ export default function University() {
             </Button>
           </Link>
 
-          <Button color="pink">
+          <Button
+            color="pink"
+            disabled={!currentUser}
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
             <IoCreateOutline className="h-5 w-5 mr-2" />
             Write a Review
           </Button>
@@ -162,7 +191,7 @@ export default function University() {
           </div>
           <div className="basis-2/3 space-y-4">
             <div className="mt-6 lg:mt-0">
-              {university.totalRatings > 0 ? (
+              {university && university.totalRatings > 0 ? (
                 <h2 className="text-xl font-semibold">
                   Browse {university && university.totalRatings} Reviews
                 </h2>
@@ -181,31 +210,31 @@ export default function University() {
             <Card className="bg-white dark:bg-gray-800 shadow-md border-0 dark:shadow-none rounded-md transition duration-300 ease-in-out">
               <div className="flex flex-col lg:flex-row lg:items-center items-start  justify-between gap-y-5">
                 <div className="flex flex-row items-center gap-3">
-                  <div className="border w-14 h-14 rounded-full flex justify-center bg-yellow-300">
+                  <div className="border w-14 h-14 rounded-full flex justify-center bg-yellow-300 dark:border-gray-500">
                     <span className="flex items-center text-white font-bold gap-0.5">
                       3.3
                       <FaStar className="h-5 w-5" />
                     </span>
                   </div>
                   <div>
-                    <span className="text-xs font-semibold">
+                    <span className="text-xs font-semibold dark:text-gray-400">
                       Tue Feb 07, 2023
                     </span>
                   </div>
                 </div>
                 <div className="flex-wrap flex gap-x-2 gap-y-2 text-sm">
                   <div className="flex items-center gap-x-2">
-                    <span className="border rounded-full flex flex-row items-center gap-2 px-2">
+                    <span className="border rounded-full flex flex-row items-center gap-2 px-2 dark:border-gray-500 dark:text-gray-400">
                       <FaBook className="h-3 w-3" />
-                      <span>Education</span>
+                      <span className="text-sm">Education</span>
                       <span className="flex items-center gap-0.5 text-xs">
                         3.3
                         <FaStar className="h-3 w-3" />
                       </span>
                     </span>
-                    <span className="border rounded-full flex flex-row items-center gap-2 px-2">
+                    <span className="border rounded-full flex flex-row items-center gap-2 px-2 dark:border-gray-500 dark:text-gray-400">
                       <PiBuildingsFill className="h-4 w-4" />
-                      <span>Facility</span>
+                      <span className="text-sm">Facility</span>
                       <span className="flex items-center gap-0.5 text-xs">
                         3.3
                         <FaStar className="h-3 w-3" />
@@ -213,17 +242,17 @@ export default function University() {
                     </span>
                   </div>
                   <div className="flex items-center gap-x-2">
-                    <span className="border rounded-full flex flex-row items-center gap-2 px-2">
+                    <span className="border rounded-full flex flex-row items-center gap-2 px-2 dark:border-gray-500 dark:text-gray-400">
                       <IoPeopleCircle className="h-4 w-4" />
-                      <span>Social</span>
+                      <span className="text-sm">Social</span>
                       <span className="flex items-center gap-0.5 text-xs">
                         3.3
                         <FaStar className="h-3 w-3" />
                       </span>
                     </span>
-                    <span className="border rounded-full flex flex-row items-center gap-2 px-2">
+                    <span className="border rounded-full flex flex-row items-center gap-2 px-2 dark:border-gray-500 dark:text-gray-400">
                       <FaShieldAlt className="h-3 w-3" />
-                      <span>Admin</span>
+                      <span className="text-sm">Admin</span>
                       <span className="flex items-center gap-0.5 text-xs">
                         3.3
                         <FaStar className="h-3 w-3" />
@@ -232,7 +261,7 @@ export default function University() {
                   </div>
                 </div>
               </div>
-              <p className="text-pretty">
+              <p className="text-pretty dark:text-gray-300">
                 Trust me the school gives you many opportunities but you just
                 have to adapt to it and foremost it’s had here be sure to go
                 through every contract every documents the school offers. They
@@ -243,7 +272,11 @@ export default function University() {
         </div>
       </main>
 
-      <CreateReview />
+      <CreateReview
+        showModal={showModal}
+        setShowModal={setShowModal}
+        university={university && university._id}
+      />
     </>
   );
 }

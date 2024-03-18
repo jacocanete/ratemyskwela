@@ -10,12 +10,32 @@ import { Modal, Button, Progress, ModalHeader } from "flowbite-react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Textarea } from "flowbite-react";
+import { toast } from "sonner";
+import { set } from "mongoose";
 
-export default function CreateReview() {
+export default function CreateReview({ showModal, setShowModal, university }) {
   const { theme } = useSelector((state) => state.theme);
-  const [rating, setRating] = useState(0);
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    education: 1,
+    facility: 1,
+    social: 1,
+    admin: 1,
+    content: "",
+    universityId: university,
+  });
+  const [education, setEducation] = useState(1);
+  const [facility, setFacility] = useState(1);
+  const [social, setSocial] = useState(1);
+  const [admin, setAdmin] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  console.log(formData);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
 
   const handleBack = () => {
     if (step === 1) {
@@ -29,8 +49,51 @@ export default function CreateReview() {
     setStep((prevStep) => Math.min(prevStep + 1, 5));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const toastId = toast.loading("Submitting review...");
+    console.log("clicked");
+    if (formData.content.length < 20) {
+      toast.error("Review must be at least 20 characters.", { id: toastId });
+      setLoading(false);
+      return;
+    }
+
+    if (formData.content.length > 500) {
+      toast.error("Review must be at most 500 characters.", { id: toastId });
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/review/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error("Error occured, please try again.", { id: toastId });
+        setLoading(false);
+        return;
+      }
+      if (res.ok) {
+        toast.success("Review submitted successfully.", { id: toastId });
+        setLoading(false);
+        setShowModal(false);
+        window.location.reload();
+      }
+    } catch (error) {
+      toast.error(error.message, { id: toastId });
+      setLoading(false);
+    }
+  };
+
   return (
-    <Modal show={true} className="light">
+    <Modal show={showModal} className={theme}>
       <Modal.Body className="p-8">
         <div className="space-y-6">
           <h1 className="text-xl font-bold tracking-tight text-gray-700 dark:text-white">
@@ -61,11 +124,14 @@ export default function CreateReview() {
                   <button
                     key={star}
                     className={`flex border border-pink-500 w-10 h-10 cursor-pointer items-center justify-center rounded-md ${
-                      star <= rating
+                      star <= education
                         ? "bg-pink-500"
                         : "text-gray-700 dark:text-white"
                     }`}
-                    onClick={() => setRating(star)}
+                    onClick={() => {
+                      setEducation(star);
+                      setFormData({ ...formData, education: star });
+                    }}
                   >
                     <FaStar />
                   </button>
@@ -94,11 +160,14 @@ export default function CreateReview() {
                   <button
                     key={star}
                     className={`flex border border-pink-500 w-10 h-10 cursor-pointer items-center justify-center rounded-md ${
-                      star <= rating
+                      star <= facility
                         ? "bg-pink-500"
                         : "text-gray-700 dark:text-white"
                     }`}
-                    onClick={() => setRating(star)}
+                    onClick={() => {
+                      setFacility(star);
+                      setFormData({ ...formData, facility: star });
+                    }}
                   >
                     <FaStar />
                   </button>
@@ -127,11 +196,14 @@ export default function CreateReview() {
                   <button
                     key={star}
                     className={`flex border border-pink-500 w-10 h-10 cursor-pointer items-center justify-center rounded-md ${
-                      star <= rating
+                      star <= social
                         ? "bg-pink-500"
                         : "text-gray-700 dark:text-white"
                     }`}
-                    onClick={() => setRating(star)}
+                    onClick={() => {
+                      setSocial(star);
+                      setFormData({ ...formData, social: star });
+                    }}
                   >
                     <FaStar />
                   </button>
@@ -159,11 +231,14 @@ export default function CreateReview() {
                   <button
                     key={star}
                     className={`flex border border-pink-500 w-10 h-10 cursor-pointer items-center justify-center rounded-md ${
-                      star <= rating
+                      star <= admin
                         ? "bg-pink-500"
                         : "text-gray-700 dark:text-white"
                     }`}
-                    onClick={() => setRating(star)}
+                    onClick={() => {
+                      setAdmin(star);
+                      setFormData({ ...formData, admin: star });
+                    }}
                   >
                     <FaStar />
                   </button>
@@ -181,9 +256,24 @@ export default function CreateReview() {
                 </p>
               </div>
               <Textarea
-                id="description"
+                id="content"
+                type="text"
                 className="min-h-24"
                 rows={4}
+                onChange={handleChange}
+                required
+                helperText={
+                  <>
+                    By submitting a review, you agree to our{" "}
+                    <span
+                      href="#"
+                      className="text-pink-500 cursor-pointer hover:underline dark:text-pink-300"
+                    >
+                      Terms of Service
+                    </span>
+                    .
+                  </>
+                }
                 required
               />
             </div>
@@ -192,12 +282,23 @@ export default function CreateReview() {
       </Modal.Body>
       <Modal.Footer className="flex justify-between">
         <Button color="gray" onClick={handleBack}>
-          Back
+          {step === 1 ? "Cancel" : "Back"}
         </Button>
         {step === 5 ? (
-          <Button gradientMonochrome="pink">Submit</Button>
+          <Button
+            gradientMonochrome="pink"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            Submit
+          </Button>
         ) : (
-          <Button gradientMonochrome="pink" onClick={handleNext}>
+          <Button
+            gradientMonochrome="pink"
+            onClick={() => {
+              handleNext();
+            }}
+          >
             Next
           </Button>
         )}

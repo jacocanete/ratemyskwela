@@ -6,6 +6,8 @@ export const create = async (req, res, next) => {
   const { content, universityId, education, facility, social, admin } =
     req.body;
 
+  let review;
+
   if (
     !content ||
     !education ||
@@ -30,20 +32,22 @@ export const create = async (req, res, next) => {
   }
 
   try {
-    const review = new Review({
-      content,
-      universityId,
-      education,
-      facility,
-      social,
-      admin,
-    });
-    await review.save();
-  } catch (error) {
-    return next(errorHandler(500, "An error occured while saving the review."));
-  }
+    try {
+      const review = new Review({
+        content,
+        universityId,
+        education,
+        facility,
+        social,
+        admin,
+      });
+      await review.save();
+    } catch (error) {
+      return next(
+        errorHandler(500, "An error occured while saving the review.")
+      );
+    }
 
-  try {
     const reviews = await Review.find({ universityId });
     const totalEducationRating = reviews.reduce(
       (sum, review) => sum + review.education,
