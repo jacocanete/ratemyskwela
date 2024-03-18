@@ -30,8 +30,6 @@ export default function CreateReview({ showModal, setShowModal, university }) {
   const [admin, setAdmin] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  console.log(formData);
-
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
@@ -53,7 +51,6 @@ export default function CreateReview({ showModal, setShowModal, university }) {
     e.preventDefault();
     setLoading(true);
     const toastId = toast.loading("Submitting review...");
-    console.log("clicked");
     if (formData.content.length < 20) {
       toast.error("Review must be at least 20 characters.", { id: toastId });
       setLoading(false);

@@ -33,6 +33,7 @@ export const create = async (req, res, next) => {
 
   try {
     try {
+      const overallRating = (education + facility + social + admin) / 4;
       const review = new Review({
         content,
         universityId,
@@ -40,6 +41,7 @@ export const create = async (req, res, next) => {
         facility,
         social,
         admin,
+        overallRating,
       });
       await review.save();
     } catch (error) {
@@ -100,7 +102,7 @@ export const read = async (req, res, next) => {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order === "asc" ? 1 : -1;
-    const reviews = await Review.find({
+    let reviews = await Review.find({
       ...(req.query.universityId && { universityId: req.query.universityId }),
       ...(req.query.searchTerm && {
         content: { $regex: req.query.searchTerm, $options: "i" },
@@ -109,6 +111,16 @@ export const read = async (req, res, next) => {
       .sort({ createdAt: sortDirection })
       .limit(limit)
       .skip(startIndex);
+
+    reviews = reviews.map((review) => ({
+      ...review._doc,
+      formattedDate: review.createdAt.toLocaleDateString("en-US", {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      }),
+    }));
 
     res.status(200).json({
       success: true,

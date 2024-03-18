@@ -95,7 +95,7 @@ export default function Home() {
               <Rating className="mt-2 justify-end">
                 <Rating.Star />
                 <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">
-                  {university.averageRating.toFixed(2)}
+                  {university.overallRating.toFixed(1)}
                 </p>
                 <span className="mx-1.5 h-1 w-1 rounded-full bg-gray-500 dark:bg-gray-400" />
                 <span

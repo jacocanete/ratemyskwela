@@ -16,10 +16,18 @@ export default function FooterCom() {
               </span>
             </div>
             <Footer.LinkGroup className="justify-center">
-              <Footer.Link href="#">About</Footer.Link>
-              <Footer.Link href="#">Privacy Policy</Footer.Link>
-              <Footer.Link href="#">Terms of Service</Footer.Link>
-              <Footer.Link href="#">Contact</Footer.Link>
+              <Footer.Link as={Link} to="/about">
+                About
+              </Footer.Link>
+              <Footer.Link as={Link} to="/privacy-policy">
+                Privacy Policy
+              </Footer.Link>
+              <Footer.Link as={Link} to="/terms-of-service">
+                Terms of Service
+              </Footer.Link>
+              <Footer.Link as={Link} to="/contact">
+                Contact
+              </Footer.Link>
             </Footer.LinkGroup>
           </div>
           <Footer.Divider />

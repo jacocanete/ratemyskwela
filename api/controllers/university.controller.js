@@ -60,7 +60,7 @@ export const read = async (req, res, next) => {
         ],
       }),
     })
-      .sort({ averageRating: sortDirection })
+      .sort({ overallRating: sortDirection })
       .limit(limit)
       .skip(startIndex);
 

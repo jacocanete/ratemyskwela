@@ -30,6 +30,11 @@ const reviewSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    overallRating: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
