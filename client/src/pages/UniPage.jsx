@@ -94,6 +94,20 @@ export default function University() {
     }
   }
 
+  function getBGColor(rating) {
+    if (rating >= 4) {
+      return "bg-green-500";
+    } else if (rating >= 3) {
+      return "bg-yellow-300";
+    } else if (rating >= 2) {
+      return "bg-orange-500";
+    } else if (rating >= 1) {
+      return "bg-red-500";
+    } else {
+      return "bg-gray-400";
+    }
+  }
+
   console.log(university);
 
   return (
@@ -236,7 +250,11 @@ export default function University() {
               >
                 <div className="flex flex-col lg:flex-row lg:items-center items-start  justify-between gap-y-5">
                   <div className="flex flex-row items-center gap-3">
-                    <div className="border w-14 h-14 rounded-full flex justify-center bg-yellow-300 dark:border-gray-500">
+                    <div
+                      className={`border w-14 h-14 rounded-full flex justify-center ${getBGColor(
+                        review.overallRating
+                      )} dark:border-gray-500`}
+                    >
                       <span className="flex items-center text-white font-bold gap-0.5">
                         {review.overallRating.toFixed(1)}
                         <FaStar className="h-5 w-5" />
