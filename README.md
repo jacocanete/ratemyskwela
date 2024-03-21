@@ -3,7 +3,7 @@
 
 Simple review app created with the MERN stack.
 
-This project is just a fun project to try and build a functional end to end web application using the MERN stack and to study how to implement displaying of real time data with the sonner toast library.
+This project is just a fun project to try and build a functional end to end web application using the MERN stack and to study how to implement displaying of data with the REST API and implementation of the sonner toast library for errors.
 
 
 ## Introduction
