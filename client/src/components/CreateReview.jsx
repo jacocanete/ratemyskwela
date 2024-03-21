@@ -89,6 +89,8 @@ export default function CreateReview({ showModal, setShowModal, university }) {
     }
   };
 
+  console.log(formData);
+
   return (
     <Modal show={showModal} className={theme}>
       <Modal.Body className="p-8">

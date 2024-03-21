@@ -109,7 +109,6 @@ export const read = async (req, res, next) => {
       }),
     })
       .sort({ createdAt: sortDirection })
-      .limit(limit)
       .skip(startIndex);
 
     reviews = reviews.map((review) => ({
