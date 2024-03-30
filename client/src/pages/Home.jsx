@@ -19,8 +19,6 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [showMore, setShowMore] = useState(true);
 
-  console.log(totalUniversities);
-
   useEffect(() => {
     const fetchUniversities = async () => {
       try {
@@ -72,11 +70,12 @@ export default function Home() {
     <div className="max-w-6xl mx-auto mt-5 mb-5 min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {universities.map((university) => (
-          <Link to={`/${university.slug}`} className="flex">
-            <Card
-              key={university._id}
-              className="w-full cursor-pointer mx-auto max-w-sm ring-pink-500 dark:ring-gray-800 hover:ring-1 flex flex-col p-2 bg-white dark:bg-gray-800 shadow-md border-0 dark:shadow-none rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
-            >
+          <Link
+            to={`/${university.slug}`}
+            className="flex"
+            key={university._id}
+          >
+            <Card className="w-full cursor-pointer mx-auto max-w-sm ring-pink-500 dark:ring-gray-800 hover:ring-1 flex flex-col p-2 bg-white dark:bg-gray-800 shadow-md border-0 dark:shadow-none rounded-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
               <div className="flex">
                 <Avatar
                   img={university.logo}
