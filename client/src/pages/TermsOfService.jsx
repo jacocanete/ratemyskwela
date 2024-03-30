@@ -40,7 +40,7 @@ export default function TermsOfService() {
         </p>
 
         <br />
-        <p className="text-lg text-gray-600 dark:text-gray-400 text-balance text-center">
+        <p className="text-lg text-gray-600 dark:text-gray-400 text-balance text-left">
           By submitting a review, users acknowledge that they have read,
           understood, and consent to abide by these terms and conditions.
         </p>

@@ -45,7 +45,7 @@ export default function PrivacyPolicy() {
           communicated transparently to users.
         </p>
         <br />
-        <p className="text-lg text-gray-600 dark:text-gray-400 text-balance text-center">
+        <p className="text-lg text-gray-600 dark:text-gray-400 text-balance text-left">
           For any questions or concerns regarding our Privacy Policy or data
           practices, please feel free to contact us directly.
         </p>
