@@ -4,7 +4,7 @@ import { Card } from "flowbite-react";
 export default function PrivacyPolicy() {
   return (
     <div className="max-w-6xl mx-auto mt-5 mb-2 min-h-screen">
-      <Card className="max-w-full flex flex-col shadow-md border-0 transition duration-300 ease-in-out ">
+      <Card className="max-w-full flex flex-col shadow-md border-0 transition duration-300 ease-in-out p-2">
         <h2 className="text-4xl text-center font-bold">Privacy Policy</h2>
         <h3 className="text-2xl font-bold">Introduction: </h3>
         <p className="text-lg text-gray-600 dark:text-gray-400 text-balance text-left">
