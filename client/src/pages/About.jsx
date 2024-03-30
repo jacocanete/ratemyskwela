@@ -8,12 +8,12 @@ export default function About() {
       <Card className="max-w-full flex flex-col shadow-md border-0 transition duration-300 ease-in-out p-2">
         <h1 className="text-4xl text-center font-bold">About</h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 text-balance text-center">
-          RateMyUni.com is your go-to destination for transparent university
+          RateMySkwela.com is your go-to destination for transparent school
           ratings. We're passionate about education and believe in empowering
           students with unbiased insights.
           <br />
           <br />
-          Our platform allows students to anonymously rate their universities,
+          Our platform allows students to anonymously rate their schools,
           helping others make informed decisions about their academic journey!
         </p>
         <h2 className="text-3xl text-center font-bold">Authors</h2>

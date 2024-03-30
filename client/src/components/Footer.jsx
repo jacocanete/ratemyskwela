@@ -12,7 +12,7 @@ export default function FooterCom() {
             <div className="flex gap-1 justify-center">
               <HiAcademicCap className="w-10 h-10 text-pink-500 dark:text-pink-300" />
               <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white hidden md:inline">
-                RateMyUni
+                RateMySkwela
               </span>
             </div>
             <Footer.LinkGroup className="justify-center">
@@ -30,7 +30,7 @@ export default function FooterCom() {
           <Footer.Divider />
           <Footer.Copyright
             href="https://github.com/jacocanete/ratemyuni-app"
-            by="RateMyUni by Jaco x Ryu"
+            by="RateMySkwela by Jaco x Ryu"
             year={2024}
           />
         </div>

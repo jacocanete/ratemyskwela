@@ -1,4 +1,4 @@
-# RateMyUni
+# RateMySkwela
 
 Simple review app created with the MERN stack.
 
@@ -26,7 +26,7 @@ This project is still under development and I pray to God it actually gets finis
 Clone the project
 
 ```bash
-  git clone https://github.com/jacocanete/ratemyuni-app.git
+  git clone https://github.com/jacocanete/ratemyskwela.git
 ```
 
 Install server dependencies in root folder

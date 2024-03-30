@@ -72,7 +72,7 @@ export default function Header() {
         <Navbar.Brand as={Link} to="/" className="gap-1">
           <HiAcademicCap className="w-10 h-10 text-pink-500 dark:text-pink-300" />
           <span className="self-center whitespace-nowrap text-xl font-bold dark:text-white">
-            RateMyUni
+            RateMySkwela
           </span>
         </Navbar.Brand>
         <div className="flex gap-2 md:order-2">
