@@ -1,14 +1,13 @@
-
 # RateMyUni
 
 Simple review app created with the MERN stack.
 
-This project is just a fun project to try and build a functional end to end web application using the MERN stack and to study how to implement displaying of data with the REST API and implementation of the sonner toast library for errors.
-
+This project is a fun venture by a group of developers aiming to explore the MERN stack. We're diving into displaying data with REST API, securing it with Google OAuth, and managing state using Redux.
 
 ## Introduction
 
 This project is still under development and I pray to God it actually gets finished. :)
+
 ## Tech Stack
 
 **Client:** React, Redux, TailwindCSS, Firebase, Vite, Flowbite
@@ -17,11 +16,10 @@ This project is still under development and I pray to God it actually gets finis
 
 **Database:** MongoDB
 
-
 ## Authors
 
 - [@jacocanete](https://www.github.com/jacocanete)
-
+- [@Ludensburger](https://github.com/Ludensburger)
 
 ## Run Locally
 
@@ -61,7 +59,6 @@ Run client
   npm run dev
 ```
 
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your root folder's .env file
@@ -74,13 +71,10 @@ And another .env file inside the client folder. This is for the OAuth.
 
 VITE_FIREBASE_API_KEY = `FIREBASE_API_KEY`
 
-
 ## Optimizations
 
 I'm still fairly new so my code will probably look horrible as I'm really just diving into this blindly. I have knowledge of the fundamentals but the React framework is new to me and I've only been learning parts from the Tech Stack that I actually need for the project, so basically nothing comprehensive yet.
 
-
 ## Feedback
 
 If you have any feedback, please reach out to us at jacogagarincanete@gmail.com
-

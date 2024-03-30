@@ -25,15 +25,12 @@ export default function FooterCom() {
               <Footer.Link as={Link} to="/terms-of-service">
                 Terms of Service
               </Footer.Link>
-              <Footer.Link as={Link} to="/contact">
-                Contact
-              </Footer.Link>
             </Footer.LinkGroup>
           </div>
           <Footer.Divider />
           <Footer.Copyright
             href="https://github.com/jacocanete/ratemyuni-app"
-            by="RateMyUni by Jaco"
+            by="RateMyUni by Jaco x Ryu"
             year={2024}
           />
         </div>
